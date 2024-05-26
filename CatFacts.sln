@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatFacts.API", "CatFacts.API\CatFacts.API.csproj", "{6A86F024-F190-4038-97AA-C83168C532A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatFacts.Client", "CatFacts.Client\CatFacts.Client.csproj", "{7B141100-3B87-4063-BCC8-AD0083D3FF60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A86F024-F190-4038-97AA-C83168C532A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A86F024-F190-4038-97AA-C83168C532A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A86F024-F190-4038-97AA-C83168C532A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A86F024-F190-4038-97AA-C83168C532A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B141100-3B87-4063-BCC8-AD0083D3FF60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B141100-3B87-4063-BCC8-AD0083D3FF60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B141100-3B87-4063-BCC8-AD0083D3FF60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B141100-3B87-4063-BCC8-AD0083D3FF60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B4D5A501-7D0D-4A59-BC7B-FC723CAE070A}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,101 @@
+﻿@page "/"
+
+@inject IApiService ApiService
+
+<PageTitle>CatFacts</PageTitle>
+
+<div class="mt-5" style="display: flex; flex-direction: column; align-items: center">
+    <h1>Welcome to CatFacts!</h1>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p style="color:red;">@errorMessage</p>
+    }
+
+    <div style="width: 40rem;">
+        <div class="card">
+            <div class="card-body d-flex flex-column align-items-center">
+                <h5 class="card-title">Click here to get a brand new Cat fact</h5>
+                <p class="card-text">Every fact is being saved to the "catFacts" text file</p>
+                @if (!loading)
+                {
+                    <button type="button" onclick="@( async ()=> { await AddCatFact(); })" class="btn btn-primary">Get a new one</button>
+                } else
+                {
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                }
+            </div>
+        </div>
+        @if (catFacts.Count < 1)
+        {
+            <h5 class="text-danger mt-3 text-center">The list of catFacts is empty!</h5>
+        } else
+        {
+            <h5 class="text-center mt-3 text-primary">Elements in a list: @catFacts.Count()</h5>
+        }
+        <div class="mt-3">
+            @foreach(var catFact in catFacts)
+            {
+                <div class="p-2 bg-light d-flex flex-row justify-content-between align-items-center my-1 rounded-3">
+                    <div class="d-flex flex-column">
+                        <span>@catFact.Fact</span>
+                        <span class="fw-bold small">Lenght: @catFact.Length</span>
+                    </div>
+                    <button type="button" onclick="@( async ()=> { await DeleteCatFact(catFact.Id); })" class="btn btn-danger mx-2">Delete</button>
+                </div>
+            }
+        </div>
+
+
+    </div>
+</div>
+
+@code {
+    private List<CatFact> catFacts { get; set; } = [];
+    private bool loading { get; set; } = false;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        var fetchedCatFacts = await ApiService.GetCatFactsFromApi();
+        if (fetchedCatFacts is null)
+        {
+            errorMessage = "Couldn't connect to the API server";
+            loading = false;
+            StateHasChanged();
+            return;
+        }
+        catFacts = fetchedCatFacts;
+        loading = false;
+    }
+
+    public async Task AddCatFact()
+    {
+        loading = true;
+        var catFact = await ApiService.GetNewCatFact();
+        if (catFact is null)
+        {
+            errorMessage = "Couldn't connect to the API server";
+            loading = false;
+            StateHasChanged();
+            return;
+        }
+        catFacts = await ApiService.GetCatFactsFromApi();
+        loading = false;
+    }
+
+    public async Task DeleteCatFact(Guid id)
+    {
+        var deletedCatFact = await ApiService.DeleteCatFact(id);
+        if (deletedCatFact is null)
+        {
+            errorMessage = "Couldn't connect to the API server";
+            StateHasChanged();
+            return;
+        }
+        catFacts = await ApiService.GetCatFactsFromApi();
+        StateHasChanged();
+    }
+}
